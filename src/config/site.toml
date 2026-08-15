@@ -1,0 +1,233 @@
+[config.site]
+title = "Ahmat Fauzi"
+description = "Full Stack Developer building REST APIs, web applications, and scalable systems."
+pageTitle = "Ahmat Fauzi | Full Stack Developer"
+pageDescription = "Personal portfolio of Ahmat Fauzi, a Full Stack Developer working with React, Node.js, Laravel, and Python."
+url = "https://www.ahmatfauzi.my.id"
+repository = "https://github.com/ahmatfauzy"
+footerNote = "© 2026"
+
+[config.theme]
+# Available palettes:
+# green-soft, green-vivid, rose-soft, pink-soft, purple-soft, blue-soft, orange-soft, brown-soft
+palette = "green-soft"
+# Native UI language. Unknown values fall back to en.
+lang = "en"
+
+[config.fonts]
+# English and code-oriented UI fonts
+en = "Maple Mono"
+code = "Monaco"
+# Built-in options: ChillRoundM, LXGW WenKai
+# Chinese reading font
+zh = "ChillRoundM"
+# Full Chinese font file
+file = "/fonts/ChillRoundM.ttf"
+
+[config.code]
+lightTheme = "catppuccin-latte"
+darkTheme = "catppuccin-macchiato"
+lineNumbers = true
+wrap = true
+preserveIndent = true
+collapseStyle = "collapsible-auto"
+
+[config.math]
+render = "katex" # "katex" | "mathjax"
+
+[config.comments]
+enabled = false
+provider = "none"
+show_on_posts = true
+
+[config.search]
+enabled = true
+shortcut = "mod+k"
+placeholder = "Search notes..."
+maxResults = 6
+
+[config.pages.blog]
+title = "Blog"
+kicker = "Notebook archive"
+subtitle = "Read what Ahmat Fauzi has been up to recently"
+note = "Field notes, drafts, and technical margins arranged for slow browsing."
+postsPerPage = 6
+# Date format template used by date-fns.
+dateFormat = "yyyy-MM-dd"
+# Metadata separator. Use "|", "/", or the special value "icon".
+metadataSeparator = "icon"
+# Article list cover style: "card" keeps a bordered thumbnail, "mask" blends the image into the right side.
+coverImageStyle = "mask"
+
+[config.pages.blog.categories]
+title = "Categories"
+kicker = "Browse notes"
+subtitle = ""
+note = "A quiet index of recurring topics, gathered from article frontmatter."
+
+[config.pages.blog.series]
+title = "Series"
+kicker = "Reading paths"
+subtitle = ""
+note = "Connected notes that can be followed in the order they were written."
+
+[config.pages.projects]
+title = "Projects"
+kicker = "Project shelf"
+subtitle = "Design and dev projects by Ahmat Fauzi"
+note = "A compact shelf for implementation choices, releases, and publishing experiments."
+
+[config.pages.vibe]
+title = "Vibe"
+kicker = ""
+subtitle = "Life and coding fragments."
+note = "Not formal enough for blog posts, but still part of the story."
+showTrail = true
+
+[config.pages.media]
+title = "Media"
+subtitle = "Books, films, and music — with a little of what I felt at the time."
+note = "One page for books, films, series, albums, and podcasts."
+
+[config.comments.giscus]
+repo = ""
+repo_id = ""
+category = ""
+category_id = ""
+mapping = "pathname"
+strict = "0"
+reactions_enabled = "1"
+emit_metadata = "0"
+input_position = "top"
+light_theme = "light"
+dark_theme = "dark"
+lang = "en"
+loading = "lazy"
+
+[config.comments.utterances]
+repo = ""
+issue_term = "pathname"
+label = "comment"
+theme = "github-light"
+
+[config.comments.waline]
+server_url = ""
+lang = "en"
+dark = "html.dark"
+pageview = true
+comment = true
+
+[config.profile]
+name = "Ahmat Fauzi"
+handle = "@ahmatfauzy"
+role = "Full Stack Developer"
+email = "ahmatfauzi707@gmail.com"
+website = "https://www.ahmatfauzi.my.id/"
+github = "https://github.com/ahmatfauzy"
+avatar = "/images/avatar.png"
+
+[[config.topNav.links]]
+label = "Home"
+href = "/"
+
+[[config.topNav.links]]
+label = "Blog"
+href = "/blog"
+
+[[config.topNav.links]]
+label = "Projects"
+module = "projects"
+
+[[config.topNav.links]]
+label = "Vibe"
+module = "vibe"
+
+# [[config.topNav.links]]
+# label = "Media"
+# module = "media"
+
+[[config.topNav.links]]
+label = "About"
+href = "/about"
+
+[config.home]
+
+[config.home.quote]
+text = [
+  "a Full Stack Developer who solves problems and brings ideas to life through code.",
+]
+
+[config.home.intro]
+title = "here is Ahmat Fauzi"
+name = "Ahmat Fauzi"
+body = [
+  "A passionate Full-Stack Developer with expertise in React, Node.js, Laravel, and Python.",
+  "Experienced in building REST APIs, authentication systems, and managing SQL/NoSQL databases.",
+  "I enjoy creating seamless user experiences and scalable backend architectures.",
+  "Off the keyboard, I'm a die-hard Liverpool supporter — I debug code with the same intensity I watch the Reds defend a 1-0 lead.",
+  "I've never scored a worldie like Salah, but my curl requests are on point, and that's close enough for me.",
+  "YNWA isn't just the Kop anthem — it's my debugging philosophy too: you'll never walk alone through a stack trace.",
+  "#YNWA",
+]
+
+[config.home.latest]
+count = 1
+heatmapWeeks = 24
+showHeatmapLatest = true
+excludeDraft = true
+startDate = ""
+dateArchiveBaseHref = ""
+
+[[config.home.navigation]]
+icon = "pen"
+title = "Blog"
+subtitle = "Notes and writing"
+href = "/blog"
+
+[[config.home.navigation]]
+icon = "briefcase"
+title = "Projects"
+subtitle = "Selected work and case studies"
+href = "/projects"
+
+[[config.home.navigation]]
+icon = "github"
+title = "GitHub"
+subtitle = "Code, experiments, and tools"
+href = "https://github.com/ahmatfauzy"
+
+[[config.home.navigation]]
+icon = "linkedin"
+title = "LinkedIn"
+subtitle = "Professional profile"
+href = "https://www.linkedin.com/in/ahmat-fauzi"
+
+[[config.home.links]]
+label = "GitHub"
+icon = "github"
+tooltip = "https://github.com/ahmatfauzy"
+copy = false
+
+[[config.home.links]]
+label = "LinkedIn"
+icon = "linkedin"
+tooltip = "https://www.linkedin.com/in/ahmat-fauzi"
+copy = false
+
+[[config.home.links]]
+label = "Threads"
+icon = "threads"
+tooltip = "https://www.threads.com/@ahmatfauzy_"
+copy = false
+
+[[config.home.links]]
+label = "RSS"
+icon = "rss"
+tooltip = "/rss.xml"
+copy = false
+
+[[config.home.links]]
+label = "Email"
+icon = "mail"
+tooltip = "ahmatfauzi707@gmail.com"
+copy = true

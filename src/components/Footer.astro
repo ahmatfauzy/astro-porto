@@ -1,0 +1,10 @@
+---
+import ThemeFooter from '@navfolio/theme-default/components/Footer.astro';
+import { getSiteConfig } from '../data/site';
+
+const { profile, site } = await getSiteConfig();
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isVibePage = Astro.url.pathname === `${basePath}/vibe/`;
+---
+
+{!isVibePage && <ThemeFooter site={site} profile={profile} />}

@@ -1,11 +1,37 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import IntroCard from '../components/cards/IntroCard.astro';
+import ConnectCard from '../components/cards/ConnectCard.astro';
+import NavigationCard from '../components/cards/NavigationCard.astro';
+import ProfileCard from '../components/cards/ProfileCard.astro';
+import DashboardFlow from '../components/layout/DashboardFlow.astro';
+import GithubHeatmap from '../components/widgets/GithubHeatmap.astro';
+import { getSiteConfig } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const { home, profile, site } = await getSiteConfig();
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={site.pageTitle} description={site.pageDescription}>
+  <div class="publication-bg" aria-hidden="true"></div>
+  <DashboardFlow>
+    <Fragment slot="profile">
+      <ProfileCard profile={profile} />
+    </Fragment>
+
+    <Fragment slot="intro">
+      <IntroCard intro={home.intro} quote={home.quote} />
+    </Fragment>
+
+    <Fragment slot="latest">
+      <GithubHeatmap />
+    </Fragment>
+
+    <Fragment slot="navigation">
+      <NavigationCard items={home.navigation} />
+    </Fragment>
+
+    <Fragment slot="connect">
+      <ConnectCard links={home.links} />
+    </Fragment>
+  </DashboardFlow>
+</BaseLayout>
