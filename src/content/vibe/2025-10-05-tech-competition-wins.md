@@ -12,4 +12,4 @@ align: left
 size: md
 ---
 
-Di 2025 berhasil menjuarai lomba bidang teknologi: 4x nasional.
+Di 2025 berhasil menjuarai lomba bidang teknologi: 1x internasional, 4x nasional.

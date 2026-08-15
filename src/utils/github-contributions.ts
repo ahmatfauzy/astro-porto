@@ -20,6 +20,7 @@ export interface GithubContributions {
 
 const CONTRIBUTIONS_URL = 'https://github.com/users/{username}/contributions';
 const EVENTS_URL = 'https://api.github.com/users/{username}/events/public?per_page=30';
+const CONTRIBUTIONS_YEAR_RANGE_START = 2016;
 
 const DAY_CELL_RE =
   /data-date="(\d{4}-\d{2}-\d{2})"[^>]*?id="(contribution-day-component-[^"]+)"[^>]*?data-level="(\d)"/g;
@@ -58,8 +59,10 @@ export async function getGithubContributions(username: string): Promise<GithubCo
       currentStreak += 1;
     }
 
+    const total = await getAllTimeContributions(username);
+
     return {
-      total: days.reduce((sum, day) => sum + day.count, 0),
+      total,
       activeDays: days.filter((day) => day.count > 0).length,
       currentStreak,
       days,
@@ -68,6 +71,35 @@ export async function getGithubContributions(username: string): Promise<GithubCo
   } catch {
     return null;
   }
+}
+
+async function getAllTimeContributions(username: string): Promise<number> {
+  const currentYear = new Date().getFullYear();
+  let total = 0;
+
+  for (let year = currentYear; year >= CONTRIBUTIONS_YEAR_RANGE_START; year -= 1) {
+    try {
+      const yearTotal = await fetchYearTotal(username, year);
+      if (yearTotal === 0) break;
+      total += yearTotal;
+    } catch {
+      break;
+    }
+  }
+
+  return total;
+}
+
+async function fetchYearTotal(username: string, year: number): Promise<number> {
+  const url = `${CONTRIBUTIONS_URL.replace('{username}', username)}?from=${year}-01-01&to=${year}-12-31`;
+  const response = await fetchWithTimeout(url);
+
+  if (!response.ok) throw new Error(`Failed to fetch contributions for ${year}`);
+
+  const html = await response.text();
+  const days = parseContributionDays(html);
+
+  return days.reduce((sum, day) => sum + day.count, 0);
 }
 
 function parseContributionDays(html: string): GithubContributionDay[] {
