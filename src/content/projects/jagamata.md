@@ -16,7 +16,10 @@ authors:
     url: "https://github.com/Resta134"
   - name: "Rhiki Sulistyo"
     url: "https://github.com/riki747"
-links: []
+links:
+  - label: "Google Play"
+    href: "https://play.google.com/store/apps/details?id=id.ac.harkatnegeri.jagamata"
+    kind: platform
 tags:
   - Flask
   - Flutter
