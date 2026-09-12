@@ -1,10 +1,10 @@
-## Memulai dengan cepat
+## Quick Start
 
-### Persyaratan lingkungan
+### Environment Requirements
 
-Selain Bun dan Git, build produksi **sangat bergantung pada Python 3, FontTools, dan Brotli**. `bun run build` akan menghasilkan subset font WOFF2 berdasarkan karakter CJK pada UI situs dan konten; tanpa alat-alat tersebut build akan gagal.
+In addition to Bun and Git, the production build **heavily depends on Python 3, FontTools, and Brotli**. `bun run build` generates WOFF2 font subsets based on CJK characters used in the UI and content; without these tools the build will fail.
 
-Disarankan untuk menginstal dependensi Python di virtual environment proyek. Tidak perlu mengaktifkan virtual environment — skrip build otomatis memprioritaskan `.venv`:
+It is recommended to install Python dependencies in the project's virtual environment. You don't need to activate the virtual environment — the build script automatically prioritizes `.venv`:
 
 macOS / Linux:
 
@@ -13,57 +13,57 @@ python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip fonttools brotli
 ```
 
-Windows (PowerShell atau Command Prompt):
+Windows (PowerShell or Command Prompt):
 
 ```powershell
 py -3 -m venv .venv
 .venv\Scripts\python.exe -m pip install --upgrade pip fonttools brotli
 ```
 
-Verifikasi lingkungan subset font dengan perintah berikut:
+Verify the font subsetting environment with:
 
 ```sh
 bun run fonts:ui
 ```
 
-Instal dependensi:
+Install dependencies:
 
 ```sh
 bun install
 ```
 
-Jalankan server pengembangan:
+Run the development server:
 
 ```sh
 bun run dev
 ```
 
-Build versi produksi:
+Build for production:
 
 ```sh
 bun run build
 ```
 
-Pratinjau build produksi:
+Preview the production build:
 
 ```sh
 bun run preview
 ```
 
-## Mengganti konten untuk pertama kali
+## Replacing Content for the First Time
 
-Sebagian besar konten personal tidak perlu mengubah komponen; prioritaskan mengedit file berikut:
+Most personal content can be updated without touching components; prioritize editing the following files:
 
 ```text
-src/config/site.toml        judul situs, profil, navigasi, modul beranda, komentar, pencarian, tema
-src/content/about.mdx       halaman tentang
-src/content/blog/           artikel blog dan buku panduan modul
-src/content/projects/       pintu masuk proyek dan dokumentasi proyek
-src/content/vibe/           dinamika ringan dan serpihan kehidupan
-public/images/              Logo, avatar, pratinjau situs, dan gambar statis
+src/config/site.toml        site title, profile, navigation, home modules, comments, search, theme
+src/content/about.mdx       about page
+src/content/blog/           blog posts and guide modules
+src/content/projects/       project entry and project documentation
+src/content/vibe/           lightweight dynamics and life fragments
+public/images/              logo, avatar, site preview, and static images
 ```
 
-Membuat konten bisa menggunakan skrip bawaan:
+Content can be created using the built-in scripts:
 
 ```sh
 bun run post:new my-first-post
@@ -74,46 +74,47 @@ bun run media:new my-favourite-book
 bun run post:new private-draft src/content/drafts
 ```
 
-Semua skrip konten halaman mengikuti pola
-`bun run <singkatan-halaman>:new <nama-file> [direktori-output opsional]`. Nama file dibersihkan dengan aman dan digunakan sekaligus sebagai basename output dan `title` awal; jika direktori tidak ditentukan, direktori konten default dari template terkait yang digunakan.
-`--md`, `--mdx`, atau ekstensi nama file dapat menimpa ekstensi default template. Frontmatter dan isi default berada di `templates/default.md` yang dirilis bersama setiap paket halaman; template blog berada di
-`scripts/templates/post.md` dan dapat diedit langsung tanpa mengubah TypeScript.
+All page content scripts follow the pattern
+`bun run <page-shorthand>:new <file-name> [optional-output-directory]`. The file name is safely sanitized and used as both the output basename and the initial `title`; if no directory is specified, the default content directory for the related template is used.
+`--md`, `--mdx`, or a file name extension can override the template's default extension. Default frontmatter and content live in `templates/default.md` released with each page package; the blog template lives at
+`scripts/templates/post.md` and can be edited directly without touching TypeScript.
 
-## Rute
+## Routes
 
 ```text
-/                  beranda dashboard personal
-/blog             arsip tulisan dan buku panduan modul
-/blog/[slug]      halaman artikel blog
-/projects         pintu masuk dokumentasi proyek
-/projects/[slug]  halaman detail proyek
-/vibe             linimasa catatan pendek
-/about            halaman tentang
+/                  personal dashboard home
+/blog             writing archive and module guides
+/blog/[slug]      blog article page
+/projects         project documentation entry
+/projects/[slug]  project detail page
+/vibe             short notes timeline
+/about            about page
+/cv               CV viewer (embeds /cv.pdf)
 /rss.xml          RSS feed
 ```
 
-## Konfigurasi situs
+## Site Configuration
 
-Informasi tingkat situs terkumpul di `src/config/site.toml`:
+Site-level information is centralized in `src/config/site.toml`:
 
-- `[config.site]`: judul situs, deskripsi, alamat repositori, dan catatan footer.
-- `[config.profile]`: nama penulis, akun, peran, avatar, website, GitHub, email, dan lainnya.
-- `[[config.topNav.links]]`: tautan navigasi atas.
-- `[config.theme]`: pemilihan palet bawaan.
-- `[config.search]`: pintu masuk pencarian, pintasan, teks placeholder, dan jumlah hasil.
-- `[config.comments]`: saklar komentar dan penyedia komentar.
-- `[config.vibe]`: perilaku tampilan linimasa Vibe.
-- `[config.home]`: kutipan beranda, intro, kartu navigasi, kontak, dan hal yang sedang difokuskan.
+- `[config.site]`: site title, description, repository URL, and footer note.
+- `[config.profile]`: author name, handle, role, avatar, website, GitHub, email, etc.
+- `[[config.topNav.links]]`: top navigation links.
+- `[config.theme]`: built-in palette selection.
+- `[config.search]`: search entry, shortcut, placeholder text, and result count.
+- `[config.comments]`: comment toggle and comment provider.
+- `[config.vibe]`: Vibe timeline display behavior.
+- `[config.home]`: home quote, intro, navigation cards, contacts, and current focus.
 
-Struktur konfigurasi divalidasi oleh schema Zod di `src/content.config.ts`. Jika ada field yang hilang atau tipe tidak cocok, `bun run build` akan langsung melaporkan error sehingga masalah cepat terdeteksi.
+The configuration structure is validated by the Zod schema in `src/content.config.ts`. If a field is missing or has a wrong type, `bun run build` will immediately report an error so issues are detected quickly.
 
-## Model konten
+## Content Model
 
-Artikel blog, dokumentasi proyek, dan halaman About berbagi schema artikel yang sama:
+Blog posts, project docs, and the About page share the same article schema:
 
 ```yaml
-title: "Judul Artikel"
-description: "Ringkasan singkat untuk halaman arsip dan metadata."
+title: "Article Title"
+description: "Short summary for archive pages and metadata."
 date: "2026-05-18"
 draft: false
 heroImage: "/src/assets/figure/example.png"
@@ -127,17 +128,34 @@ sidebar:
   relatedPosts: true
 ```
 
-`sidebar` mengontrol area pendukung artikel:
+`sidebar` controls the article's supporting area:
 
-- `enable`: apakah mengaktifkan blok sidebar.
-- `toc`: apakah menampilkan navigasi daftar isi.
-- `relatedPosts`: apakah menampilkan artikel terkait.
+- `enable`: whether to enable the sidebar block.
+- `toc`: whether to show the table of contents navigation.
+- `relatedPosts`: whether to show related articles.
 
-Artikel blog biasa secara default cocok menampilkan alat baca; `/about` dan sebagian halaman proyek dapat diatur tanpa sidebar, dengan tata letak membaca terpusat.
+Regular blog posts are suitable for showing reading tools by default; `/about` and some project pages can be configured without a sidebar, using a centered reading layout.
 
-## Pencarian
+Projects extend the base schema with:
 
-Projek ini menggunakan Pagefind untuk menghasilkan indeks pencarian teks penuh statis. Tombol pencarian di navigasi atas bisa diklik untuk dibuka, dan juga mendukung pintasan `Ctrl+K` / `Cmd+K`.
+```yaml
+icon: palette        # card icon (lucide)
+iconColor: "#667d6d" # optional CSS color
+authors:
+  - name: "Ahmat Fauzi"
+    url: "https://github.com/ahmatfauzy"
+links:
+  - label: "Google Play"
+    href: "https://play.google.com/store/apps/details?id=id.ac.harkatnegeri.jagamata"
+    kind: platform   # github | website | platform | docs | demo
+tags: [Flutter, Flask]
+```
+
+`links` are rendered as preview cards below the title on `/projects/[slug]`.
+
+## Search
+
+This project uses Pagefind to generate a static full-text search index. The search button in the top navigation can be clicked to open, and it also supports the `Ctrl+K` / `Cmd+K` shortcut.
 
 ```toml
 [config.search]
@@ -147,18 +165,18 @@ placeholder = "Search notes..."
 maxResults = 6
 ```
 
-`bun run build` akan menjalankan build Astro terlebih dahulu, lalu menghasilkan indeks `dist/pagefind` untuk `dist`. Di lingkungan pengembangan, jika indeks produksi belum ada, panel pencarian akan menampilkan peringatan indeks tidak tersedia; setelah menjalankan satu build produksi, kamu bisa memakai `bun run preview` untuk memeriksa pengalaman pencarian secara lengkap.
+`bun run build` will first run the Astro build, then generate the `dist/pagefind` index for `dist`. In development, if the production index does not exist yet, the search panel will show an index-unavailable warning; after running a single production build, you can use `bun run preview` to fully test the search experience.
 
-## Komentar
+## Comments
 
-Projek ini mendukung sistem komentar yang dapat dikonfigurasi:
+The project supports configurable comment systems:
 
 - `giscus`
 - `utterances`
 - `waline`
 - `none`
 
-Konfigurasi terpusat di `src/config/site.toml`:
+Centralized configuration in `src/config/site.toml`:
 
 ```toml
 [config.comments]
@@ -167,45 +185,50 @@ provider = "giscus"
 show_on_posts = true
 ```
 
-Komentar juga bisa dimatikan per artikel di frontmatter:
+Comments can also be disabled per article in frontmatter:
 
 ```yaml
 comments: false
 ```
 
-## Struktur proyek
+## Project Structure
 
 ```text
 public/
-  images/                 Logo, gambar pratinjau, dan gambar statis
+  images/                 logo, preview image, and static images
+  cv.pdf                  CV PDF served at /cv.pdf and embedded at /cv
 src/
-  assets/                 gambar konten dan font lokal
+  assets/                 content images and local fonts
   components/
-    article/              komponen header artikel
-    blog/                 navigasi atas, pencarian, daftar isi, dan artikel terkait
-    cards/                komponen kartu beranda
-    comments/             komponen penyedia komentar
-    layout/               layout dashboard beranda
-    mdx/                  komponen konten MDX
-    widgets/              komponen aktivitas menulis dan alat
-    Icon.astro            adapter ikon terpadu
+    article/              article header components
+    blog/                 top nav, search, table of contents, and related posts
+    cards/                home cards
+    comments/             comment provider components
+    layout/               home dashboard layout
+    mdx/                  MDX content components
+    widgets/              writing activity and tool components
+    Icon.astro            unified icon adapter
   content/
-    about.mdx             konten halaman tentang
-    blog/                 Markdown / MDX blog dan buku panduan modul
-    projects/             pintu masuk proyek dan dokumentasi proyek
-    vibe/                 catatan pendek ringan
-  config/site.toml        konfigurasi situs
-  data/site.ts            helper pembaca konfigurasi TOML
-  layouts/                layout dasar dan layout artikel
-  pages/                  rute Astro
-  styles/                 tema global, palet, tipografi, dan variabel layout
+    about.mdx             about page content
+    blog/                 Markdown / MDX blog and module guides
+    projects/             project entry and project documentation
+    vibe/                 lightweight short notes
+  config/site.toml        site configuration
+  data/site.ts            TOML config reader helper
+  layouts/                base layout and article layout
+  pages/
+    index.astro           dashboard home
+    about.astro           about route
+    cv.astro              CV viewer (Google Docs/local PDF)
+    blog/                 blog routes
+  styles/                 global theme, palettes, typography, and layout variables
 ```
 
-## Teknologi
+## Tech Stack
 
 - Astro 6
 - Bun
-- Tailwind CSS 4 melalui Vite
+- Tailwind CSS 4 via Vite
 - Pagefind
 - `@astrojs/mdx`
 - `@astrojs/rss`
