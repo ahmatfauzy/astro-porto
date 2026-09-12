@@ -49,8 +49,8 @@ maxResults = 6
 [config.pages.blog]
 title = "Blog"
 kicker = "Notebook archive"
-subtitle = "Read what Ahmat Fauzi has been up to recently"
-note = "Field notes, drafts, and technical margins arranged for slow browsing."
+subtitle = ""
+note = ""
 postsPerPage = 6
 # Date format template used by date-fns.
 dateFormat = "yyyy-MM-dd"
@@ -74,8 +74,8 @@ note = "Connected notes that can be followed in the order they were written."
 [config.pages.projects]
 title = "Projects"
 kicker = "Project shelf"
-subtitle = "Design and dev projects by Ahmat Fauzi"
-note = "A compact shelf for implementation choices, releases, and publishing experiments."
+subtitle = ""
+note = ""
 
 [config.pages.vibe]
 title = "Vibe"

@@ -1,0 +1,186 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import BlogTopNav from '../components/blog/BlogTopNav.astro';
+import { getSiteConfig } from '../data/site';
+import { getHtmlLang } from '../utils/ui-text';
+
+const siteConfig = await getSiteConfig();
+const { site, theme } = siteConfig;
+const palette = theme.palette;
+const htmlLang = getHtmlLang(siteConfig);
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function withBase(href: string) {
+  if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) {
+    return href;
+  }
+  if (href === '/') {
+    return `${basePath}/` || '/';
+  }
+  return `${basePath}${href.startsWith('/') ? href : `/${href}`}`;
+}
+
+const pdfUrl = withBase('/cv.pdf');
+const title = `CV | ${site.title}`;
+const description = 'Curriculum Vitae Ahmat Fauzi — Fullstack Developer. PDF resume with experience, projects, and certifications.';
+---
+
+<!doctype html>
+<html lang={htmlLang} data-palette={palette}>
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      main {
+        width: min(100%, var(--layout-shell-width));
+        max-width: none;
+        padding: 118px var(--layout-page-gutter) var(--layout-page-bottom);
+      }
+
+      .cv-header {
+        display: grid;
+        gap: 14px;
+        max-width: 900px;
+        margin: 0 auto 24px;
+      }
+
+      .cv-kicker {
+        margin: 0;
+        color: var(--paper-ink-faint);
+        font-family: var(--font-ui-label);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .cv-title {
+        margin: 0;
+        color: var(--paper-ink);
+        font-family: var(--font-page-heading);
+        font-size: clamp(1.9rem, 4vw, 2.6rem);
+        line-height: 1.1;
+      }
+
+      .cv-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 4px;
+      }
+
+      .cv-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 14px;
+        border: 1px solid var(--paper-line);
+        border-radius: 8px;
+        background: var(--paper-control);
+        color: var(--paper-ink);
+        font-family: var(--font-ui-label);
+        font-size: 0.86rem;
+        font-weight: 650;
+        text-decoration: none;
+        transition:
+          background 160ms ease,
+          color 160ms ease,
+          border-color 160ms ease;
+      }
+
+      .cv-btn:hover {
+        background: var(--paper-control-hover);
+        color: var(--paper-accent);
+        border-color: var(--paper-line-strong);
+      }
+
+      .cv-btn-primary {
+        background: var(--paper-ink);
+        color: var(--paper-bg);
+        border-color: var(--paper-ink);
+      }
+
+      .cv-btn-primary:hover {
+        background: var(--paper-accent);
+        color: white;
+        border-color: var(--paper-accent);
+      }
+
+      .cv-viewer-wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        border: 1px solid var(--paper-line);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--paper-surface);
+        box-shadow: var(--paper-shadow);
+      }
+
+      .cv-viewer {
+        display: block;
+        width: 100%;
+        height: min(80vh, 1100px);
+        border: 0;
+        background: white;
+      }
+
+      .cv-fallback {
+        display: grid;
+        place-items: center;
+        gap: 10px;
+        padding: 32px 20px;
+        text-align: center;
+        color: var(--paper-ink-soft);
+        font-family: var(--font-ui-label);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      .cv-fallback a {
+        color: var(--paper-accent);
+        font-weight: 700;
+      }
+
+      @media (max-width: 720px) {
+        main {
+          padding-top: 88px;
+        }
+        .cv-viewer {
+          height: 70vh;
+          min-height: 520px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <BlogTopNav />
+    <main data-pagefind-body>
+      <header class="cv-header">
+        <p class="cv-kicker">Resume</p>
+        <h1 class="cv-title">Curriculum Vitae</h1>
+        <div class="cv-actions">
+          <a class="cv-btn cv-btn-primary" href={pdfUrl} download>Download PDF</a>
+          <a class="cv-btn" href={pdfUrl} target="_blank" rel="noopener noreferrer">Buka di tab baru</a>
+        </div>
+      </header>
+
+      <section class="cv-viewer-wrap" aria-label="CV PDF viewer">
+        <object data={pdfUrl} type="application/pdf" class="cv-viewer" aria-label="CV PDF">
+          <iframe
+            src={pdfUrl}
+            title="CV Ahmat Fauzi PDF"
+            class="cv-viewer"
+            loading="eager"
+          ></iframe>
+          <div class="cv-fallback">
+            <p>Browser tidak mendukung preview PDF.</p>
+            <p>
+              <a href={pdfUrl} target="_blank" rel="noopener noreferrer">Buka PDF</a>
+              {" · "}
+              <a href={pdfUrl} download>Download CV</a>
+            </p>
+          </div>
+        </object>
+      </section>
+    </main>
+  </body>
+</html>

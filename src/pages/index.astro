@@ -4,7 +4,6 @@ import ConnectCard from '../components/cards/ConnectCard.astro';
 import NavigationCard from '../components/cards/NavigationCard.astro';
 import ProfileCard from '../components/cards/ProfileCard.astro';
 import DashboardFlow from '../components/layout/DashboardFlow.astro';
-import GithubHeatmap from '../components/widgets/GithubHeatmap.astro';
 import { getSiteConfig } from '../data/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -20,10 +19,6 @@ const { home, profile, site } = await getSiteConfig();
 
     <Fragment slot="intro">
       <IntroCard intro={home.intro} quote={home.quote} />
-    </Fragment>
-
-    <Fragment slot="latest">
-      <GithubHeatmap />
     </Fragment>
 
     <Fragment slot="navigation">
